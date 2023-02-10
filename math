@@ -1,0 +1,30 @@
+const questionElement = document.getElementById("question");
+const timeRemainingElement = document.getElementById("time-remaining");
+const scoreElement = document.getElementById("score");
+const answerElement = document.getElementById("answer");
+const submitAnswerElement = document.getElementById("submit-answer");
+
+let score = 10;
+let operations = ["+", "-", "*", "/"];
+let num1, num2, answer, operation;
+
+function generateQuestion() {
+  operation = operations[Math.floor(Math.random() * operations.length)];
+  num1 = Math.floor(Math.random() * 20) + 1;
+  num2 = Math.floor(Math.random() * 9) + 1;
+  if (operation === "+") {
+    answer = num1 + num2;
+  } else if (operation === "-") {
+    answer = num1 - num2;
+    if (answer < 0) {
+      return generateQuestion();
+    }
+  } else if (operation === "*") {
+    answer = num1 * num2;
+  } else {
+    answer = num1 / num2;
+    if (answer % 1 !== 0) {
+      return generateQuestion();
+    }
+  }
+  questionElement.innerHTML = `What is the result of ${num1} ${operation} ${num2}?`
